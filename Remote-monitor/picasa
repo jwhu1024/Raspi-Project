@@ -12,8 +12,8 @@ pic_title="$2"
 pic_type=`file -b --mime-type "$my_pic"`
  
 #Your google account and password
-username=jwhu1024
-password=wei751024
+username=username
+password=password
  
 auth_key=$( curl -s https://www.google.com/accounts/ClientLogin -d Email="$username"@gmail.com -d Passwd="$password" -d accountType=GOOGLE -d source=Google-cURL-Example -d service=lh2 | awk -F\= '/^Auth=/{print $2}' )
  
