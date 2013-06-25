@@ -21,3 +21,7 @@ album_xml=$( curl -s --header "Authorization: GoogleLogin auth=$auth_key" "http:
  
 curl -s --request POST --data-binary "@$my_pic" --header "Slug: $pic_title" --header "Content-Type: $pic_type" --header "Authorization: GoogleLogin auth=$auth_key" "$album_xml" |
 sed 's/.*media:content url='"'"'\([^'"'"']*\).*media:thumbnail url='"'"'\([^'"'"']*\).*/\1\n\2/'
+
+
+
+123456
