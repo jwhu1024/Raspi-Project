@@ -1,13 +1,15 @@
-
 /**
  * Module dependencies.
  */
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
+
+var routes = require('./routes');
+var user = require('./routes/user');
+var gpio = require('./routes/gpio');
 
 var app = express();
 
@@ -27,11 +29,18 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+// Home page
+app.get('/', function(req, res) {
+    fs.readFile(__dirname + '/index.html', 'utf8', function(err, text){
+        res.send(text);
+    });
+});
+
 app.get('/users', user.list);
-app.get('/gpioOn', routes.gpioOn);    // gpio on only
-app.get('/gpioOff', routes.gpioOff);  // gpio off only
-app.get('/gpio', routes.gpio);        // gpio on/off depend on query string (act)
+app.get('/gpio', gpio.gpioControl);      // gpio on/off depend on query string (act)
+//app.get('/gpioOn', routes.gpioOn);     // gpio on only
+//app.get('/gpioOff', routes.gpioOff);   // gpio off only
+//app.post('/gpio', routes.gpio);        // gpio on/off depend on query string (act)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
